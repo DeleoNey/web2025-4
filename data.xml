@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><indicators>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Комісійні витрати</txt>
+    <txten>Fee and commission expense</txten>
+    <id_api>BS2_ExpFeeComm</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_ExpensesTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>29950.7948</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Процентні витрати</txt>
+    <txten>Interest expense</txten>
+    <id_api>BS2_ExpInterest</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_ExpensesTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>69042.1563</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Процентні доходи</txt>
+    <txten>Interest income</txten>
+    <id_api>BS2_IncomeInterest</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_IncomeTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>201804.8263</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Відрахування в резерви</txt>
+    <txten>Allocations to provisions</txten>
+    <id_api>BS2_ExpAllocToProv</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_ExpensesTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>377.2096</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Інші операційні доходи</txt>
+    <txten>Other operating income</txten>
+    <id_api>BS2_IncomeOthOper</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_IncomeTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>3626.0809</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Доходи, усього</txt>
+    <txten>Income, total</txten>
+    <id_api>BS2_IncomeTotal</id_api>
+    <leveli>2</leveli>
+    <parent>BS2_NetProfitLoss</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>293749.4994</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Повернення списаних активів</txt>
+    <txten>Written off assets recovery</txten>
+    <id_api>BS2_IncomeWritOffAssetsRec</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_IncomeTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>1087.7498</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Витрати, усього</txt>
+    <txten>Expenses, total</txten>
+    <id_api>BS2_ExpensesTotal</id_api>
+    <leveli>2</leveli>
+    <parent>BS2_NetProfitLoss</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>200133.9806</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Інші доходи</txt>
+    <txten>Other income</txten>
+    <id_api>BS2_IncomeOther</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_IncomeTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>1674.9876</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Податок на прибуток</txt>
+    <txten>Income tax expense</txten>
+    <id_api>BS2_ExpTaxIncome</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_ExpensesTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>25827.7584</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Чистий прибуток (збиток)</txt>
+    <txten>Net profit (loss)</txten>
+    <id_api>BS2_NetProfitLoss</id_api>
+    <leveli>1</leveli>
+    <parent>Income_Expenses_Banks</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>93615.5188</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Загальні адміністративні витрати</txt>
+    <txten>General administrative expenses</txten>
+    <id_api>BS2_ExpGeneralAdmin</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_ExpensesTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>59815.484</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Інші витрати</txt>
+    <txten>Other expenses</txten>
+    <id_api>BS2_ExpOther</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_ExpensesTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>4798.4797</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Інші операційні витрати</txt>
+    <txten>Other operating expenses</txten>
+    <id_api>BS2_ExpOthOper</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_ExpensesTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>10322.0978</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Комісійні доходи</txt>
+    <txten>Fee and commission income</txten>
+    <id_api>BS2_IncomeFeeComm</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_IncomeTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>61574.5193</value>
+  </banksincexp>
+  <banksincexp>
+    <dt>20240801</dt>
+    <txt>Результат від переоцінки та від операцій купівлі-продажу</txt>
+    <txten>Result from revaluation and from purchase/sale operations</txten>
+    <id_api>BS2_IncomeTrading</id_api>
+    <leveli>3</leveli>
+    <parent>BS2_IncomeTotal</parent>
+    <freq>M</freq>
+    <tzep>f_m_vc</tzep>
+    <value>23981.3355</value>
+  </banksincexp>
+</indicators>
