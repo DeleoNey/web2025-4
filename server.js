@@ -1,70 +1,102 @@
 const { program } = require('commander');
 const http = require('http');
-const fs = require('fs').promises;
-const { Builder } = require('xml2js');
+const https = require('https');
+const xml2js = require('xml2js');
+const fs = require('fs');
+
 
 // Налаштування командного рядка
 program
-  .requiredOption('-h, --host <host>', 'Server host')
-  .requiredOption('-p, --port <port>', 'Server port')
-  .requiredOption('-i, --input <file>', 'Path to input JSON file');
+  .requiredOption('-h, --host <host>', 'Адреса сервера')
+  .requiredOption('-p, --port <port>', 'Порт сервера')
+  .requiredOption('-i, --url <url>', 'Файл, з xml даними');
 
 program.parse(process.argv);
 const options = program.opts();
 
-// Функція для читання JSON-файлу та його аналізу
-async function processJSONFile(filePath) {
-  try {
-    const data = await fs.readFile(filePath, 'utf-8');
-    const jsonData = JSON.parse(data);
+// Функція отримання XML
+async function fetchXMLData(url) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(url, 'utf-8', (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
 
-    // Перевіряємо, чи jsonData є масивом
-    if (!Array.isArray(jsonData)) {
-      throw new Error('Invalid JSON format');
+
+
+// Функція обробки XML
+async function processXMLData(xmlData) {
+  try {
+    const parser = new xml2js.Parser({ explicitArray: false });
+    const result = await parser.parseStringPromise(xmlData);
+
+    // Перевірка наявності елементів "banksincexp"
+    if (!result.indicators || !result.indicators.banksincexp) {
+      throw new Error('Невірний формат XML: відсутній елемент "banksincexp".');
     }
 
-    // Фільтруємо потрібні категорії
-    const totalIncome = jsonData
-      .filter(entry => entry.parent === 'BS2_IncomeTotal')
-      .reduce((sum, entry) => sum + entry.value, 0);
+    // Перевірка, чи banksincexp є масивом
+    const entries = Array.isArray(result.indicators.banksincexp) 
+      ? result.indicators.banksincexp 
+      : [result.indicators.banksincexp];
 
-    const totalExpense = jsonData
-      .filter(entry => entry.parent === 'BS2_ExpensesTotal')
-      .reduce((sum, entry) => sum + entry.value, 0);
+    // Обчислення загального доходу
+    const totalIncome = entries
+      .filter(entry => entry.parent === 'BS2_IncomeTotal' && entry.value)
+      .reduce((sum, entry) => sum + parseFloat(entry.value) || 0, 0);
 
-    // Формуємо XML
-    const builder = new Builder();
-    const xmlData = {
+    // Обчислення загальних витрат
+    const totalExpense = entries
+      .filter(entry => entry.parent === 'BS2_ExpensesTotal' && entry.value)
+      .reduce((sum, entry) => sum + parseFloat(entry.value) || 0, 0);
+
+    // Формування відповіді XML
+    const builder = new xml2js.Builder();
+    const xmlResponse = builder.buildObject({
       data: {
         indicators: [
-          { txt: 'Доходи, усього', value: totalIncome },
-          { txt: 'Витрати, усього', value: totalExpense }
+          { txt: 'Доходи, усього', value: totalIncome.toFixed(2) },
+          { txt: 'Витрати, усього', value: totalExpense.toFixed(2) }
         ]
       }
-    };
+    });
 
-    return builder.buildObject(xmlData);
+    return xmlResponse;
 
   } catch (error) {
-    console.error('Error processing JSON file:', error.message);
+    console.error('Помилка обробки XML-даних:', error.message);
     return null;
   }
 }
 
+	
+
 // Створення HTTP-сервера
 const server = http.createServer(async (req, res) => {
-  const xmlResponse = await processJSONFile(options.input);
-  
-  if (xmlResponse) {
-    res.writeHead(200, { 'Content-Type': 'application/xml' });
-    res.end(xmlResponse);
-  } else {
+  try {
+    const xmlData = await fetchXMLData(options.url);
+    const xmlResponse = await processXMLData(xmlData);
+
+    if (xmlResponse) {
+      res.writeHead(200, { 'Content-Type': 'application/xml' });
+      res.end(xmlResponse);
+    } else {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Помилка обробки XML-даних');
+    }
+  } catch (error) {
+    console.error('Помилка отримання XML-даних:', error.message);
     res.writeHead(500, { 'Content-Type': 'text/plain' });
-    res.end('Error processing JSON file');
+    res.end('Помилка отримання XML-даних');
   }
 });
 
-// Запускаємо сервер
+// Запуск сервера
 server.listen(options.port, options.host, () => {
-  console.log(`Server running at http://${options.host}:${options.port}/`);
+  console.log(`Сервер працює за адресою http://${options.host}:${options.port}/`);
 });
